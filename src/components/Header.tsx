@@ -82,6 +82,14 @@ const Header = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const handleMegaMenuEnter = () => {
+    setIsMegaMenuOpen(true);
+  };
+
+  const handleMegaMenuLeave = () => {
+    setIsMegaMenuOpen(false);
+  };
+
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -108,10 +116,12 @@ const Header = () => {
             ))}
             
             {/* Services Mega Menu */}
-            <div className="relative">
+            <div 
+              className="relative"
+              onMouseEnter={handleMegaMenuEnter}
+              onMouseLeave={handleMegaMenuLeave}
+            >
               <button
-                onMouseEnter={() => setIsMegaMenuOpen(true)}
-                onMouseLeave={() => setIsMegaMenuOpen(false)}
                 className="flex items-center text-gray-700 hover:text-blue-800 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Services
@@ -120,83 +130,81 @@ const Header = () => {
               
               {/* Mega Menu Dropdown */}
               {isMegaMenuOpen && (
-                <div
-                  onMouseEnter={() => setIsMegaMenuOpen(true)}
-                  onMouseLeave={() => setIsMegaMenuOpen(false)}
-                  className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-[800px] bg-white rounded-lg shadow-xl border border-gray-200 z-50"
-                >
-                  <div className="p-8">
-                    <div className="grid grid-cols-2 gap-8">
-                      {/* Commercial Services */}
-                      <div>
-                        <h3 className="text-lg font-semibold text-blue-800 mb-4 flex items-center">
-                          <Building2 className="h-5 w-5 mr-2" />
-                          Commercial Services
-                        </h3>
-                        <div className="space-y-3">
-                          {commercialServices.map((service) => (
-                            <Link
-                              key={service.name}
-                              to={service.href}
-                              className="flex items-start p-3 rounded-lg hover:bg-blue-50 transition-colors group"
-                              onClick={() => setIsMegaMenuOpen(false)}
-                            >
-                              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors">
-                                <service.icon className="h-5 w-5 text-blue-600" />
-                              </div>
-                              <div>
-                                <div className="font-medium text-gray-900 group-hover:text-blue-800 transition-colors text-sm">
-                                  {service.name}
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 w-[800px] z-50">
+                  <div className="bg-white rounded-lg shadow-xl border border-gray-200">
+                    <div className="p-8">
+                      <div className="grid grid-cols-2 gap-8">
+                        {/* Commercial Services */}
+                        <div>
+                          <h3 className="text-lg font-semibold text-blue-800 mb-4 flex items-center">
+                            <Building2 className="h-5 w-5 mr-2" />
+                            Commercial Services
+                          </h3>
+                          <div className="space-y-3">
+                            {commercialServices.map((service) => (
+                              <Link
+                                key={service.name}
+                                to={service.href}
+                                className="flex items-start p-3 rounded-lg hover:bg-blue-50 transition-colors group"
+                                onClick={() => setIsMegaMenuOpen(false)}
+                              >
+                                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors">
+                                  <service.icon className="h-5 w-5 text-blue-600" />
                                 </div>
-                                <div className="text-xs text-gray-500 mt-1">
-                                  {service.description}
+                                <div>
+                                  <div className="font-medium text-gray-900 group-hover:text-blue-800 transition-colors text-sm">
+                                    {service.name}
+                                  </div>
+                                  <div className="text-xs text-gray-500 mt-1">
+                                    {service.description}
+                                  </div>
                                 </div>
-                              </div>
-                            </Link>
-                          ))}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Residential Services */}
-                      <div>
-                        <h3 className="text-lg font-semibold text-green-700 mb-4 flex items-center">
-                          <Home className="h-5 w-5 mr-2" />
-                          Residential Services
-                        </h3>
-                        <div className="space-y-3">
-                          {residentialServices.map((service) => (
-                            <Link
-                              key={service.name}
-                              to={service.href}
-                              className="flex items-start p-3 rounded-lg hover:bg-green-50 transition-colors group"
-                              onClick={() => setIsMegaMenuOpen(false)}
-                            >
-                              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
-                                <service.icon className="h-5 w-5 text-green-600" />
-                              </div>
-                              <div>
-                                <div className="font-medium text-gray-900 group-hover:text-green-700 transition-colors text-sm">
-                                  {service.name}
+                        {/* Residential Services */}
+                        <div>
+                          <h3 className="text-lg font-semibold text-green-700 mb-4 flex items-center">
+                            <Home className="h-5 w-5 mr-2" />
+                            Residential Services
+                          </h3>
+                          <div className="space-y-3">
+                            {residentialServices.map((service) => (
+                              <Link
+                                key={service.name}
+                                to={service.href}
+                                className="flex items-start p-3 rounded-lg hover:bg-green-50 transition-colors group"
+                                onClick={() => setIsMegaMenuOpen(false)}
+                              >
+                                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3 group-hover:bg-green-200 transition-colors">
+                                  <service.icon className="h-5 w-5 text-green-600" />
                                 </div>
-                                <div className="text-xs text-gray-500 mt-1">
-                                  {service.description}
+                                <div>
+                                  <div className="font-medium text-gray-900 group-hover:text-green-700 transition-colors text-sm">
+                                    {service.name}
+                                  </div>
+                                  <div className="text-xs text-gray-500 mt-1">
+                                    {service.description}
+                                  </div>
                                 </div>
-                              </div>
-                            </Link>
-                          ))}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    
-                    {/* View All Services Link */}
-                    <div className="mt-8 pt-6 border-t border-gray-200 text-center">
-                      <Link
-                        to="/services"
-                        className="inline-flex items-center justify-center bg-blue-800 text-white px-6 py-3 rounded-lg hover:bg-blue-900 transition-colors font-semibold text-sm"
-                        onClick={() => setIsMegaMenuOpen(false)}
-                      >
-                        View All Services
-                      </Link>
+                      
+                      {/* View All Services Link */}
+                      <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+                        <Link
+                          to="/services"
+                          className="inline-flex items-center justify-center bg-blue-800 text-white px-6 py-3 rounded-lg hover:bg-blue-900 transition-colors font-semibold text-sm"
+                          onClick={() => setIsMegaMenuOpen(false)}
+                        >
+                          View All Services
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
